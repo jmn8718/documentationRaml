@@ -5,6 +5,12 @@ var path = require('path');
 var raml2html = require('raml2html');
 var raml2obj = require('raml2obj');
 
+var nunjucks = require('nunjucks');
+var env = new nunjucks.Environment();
+
+env.addFilter('marked', function(str) {
+  return "MARKED";
+});
 
 var file = './raml/accounts_usa.raml';
 
@@ -38,6 +44,7 @@ router.get('/api_market/:filename', function(request, response, next) {
 router.get('/:filename', function(request, response, next) {
   var ramlFile = './raml/' + request.params.filename
   var config = raml2html.getDefaultConfig();
+
   console.log('parse ',ramlFile)
   raml2html.render(ramlFile, config).then(function(result) {
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });

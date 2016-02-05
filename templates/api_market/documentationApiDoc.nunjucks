@@ -1,23 +1,27 @@
 <div id="api-doc">
     <section class="api-doc__section">
-        {% include "./documentationApiInformation.nunjucks" %}
-        <article>
-            <section class="api__documentation" id="DUMMY1">
-                <article>
-                    DUMMY API
-                </article>
-            </section>
-            <section class="api__example">
-            </section>
-        </article>
-        <article>
-            <section class="api__documentation" id="DUMMY2">
-                <article>
-                    DUMMY API TOO
-                </article>
-            </section>
-            <section class="api__example">
-            </section>
-        </article>
+
+        {% include "./documentationApiDocItemInformation.nunjucks" %}
+
+        {% for document in documentation %}
+        {% include "./documentationApiDocItemDocumentation.nunjucks" %}
+        {% endfor %}
+
+        {% for resource in resources %}
+            <article id="documentation-{{ resource['displayName'] if resource['displayName'] else 'missing name'}}">
+                <section class="api__documentation">
+                    <article>
+                        <div class="api__documentation__subtitle">
+                            <h3 class="api__documentation__title">{{ resource['displayName'] if resource['displayName'] else 'missing name' }}</h3>
+                            <p class="api__documentation__text">
+                                  {% markdown %} {{ resource['description'] }} {% endmarkdown %}
+                            </p>
+                        </div>
+                    </article>
+                </section>
+                <section class="api__example">
+                </section>
+            </article>
+        {% endfor %}
     </section>
 </div>

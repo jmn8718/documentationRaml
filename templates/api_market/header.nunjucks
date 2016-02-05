@@ -3,7 +3,10 @@
     <title>{{ title }}Documentation</title>
     <meta content="text/html; charset=UTF-8" http-equiv="content-type">
 
+    <link href="/stylesheets/aui.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/api_market_pre.css" rel="stylesheet" type="text/css">
     <link href="/stylesheets/api_market.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/api_market_pos.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="https://google-code-prettify.googlecode.com/svn/loader/prettify.css">
 </head>
 <body class="controls-visible signed-out public-page site dockbar-split">
