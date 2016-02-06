@@ -1,0 +1,3 @@
+{% macro replaceCharacters(anchor) %}
+{{ anchor | lower | replace(" ","_") | replace("/","-") | replace(",","-") | replace(".","-") | replace("#","-") | replace("{","") | replace("}","") }}
+{% endmacro%}

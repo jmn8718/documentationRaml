@@ -1,3 +1,4 @@
+{% import './macros/generateAnchor.nunjucks' as anchor %}
                 {% set uri = resource['parentUrl'] + resource['relativeUri'] %}
                 {% if resource['displayName'] %}
                     {% set name = resource['displayName'] %}
@@ -7,7 +8,7 @@
                     {% set name = 'MISSING displayName & uniqueId IN ' + uri  %}
                 {% endif %}
                 <a class="nav__list__link nav__list__link"
-                    href="#resource-{{ name }}"
+                    href="#{{ anchor.replaceCharacters( "resource-"+name ) | trim }}"
                     title="{{ name }}">{{ name }}</a>
                 <!--<span class="api_market__tooltip nav__list__link__tooltip">{{ name }}</span>-->
                 {% if resource['methods'] %}
@@ -19,7 +20,7 @@
                                         {{ method['method'] | lower }}</strong>
                     			</span>
                                 <a class="nav__list__link nav__list__link-method"
-                                    href="#{{ uri }}-{{ method['method'] | lower }}"
+                                    href="#{{ anchor.replaceCharacters("resource-"+uri ) | trim  }}-{{ method['method'] | lower }}"
                                     title="{{ uri }}-{{ method['method'] | lower }}">{{ uri}}</a>
                                 <!--<span class="api_market__tooltip nav__list__link__tooltip">{{ uri }}</span>-->
                     </li>

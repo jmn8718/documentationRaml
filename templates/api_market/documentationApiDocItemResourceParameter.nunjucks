@@ -1,0 +1,35 @@
+<div class="api__documentation__parameters">
+    <div class="col--first api__documentation__parameters__row api__documentation__parameters__row-top">
+        <div class="api__documentation__parameters__col">
+            <span class="api__documentation__parameters__title">{{values['displayName']}}</span>
+        </div>
+        <div class="api__documentation__parameters__col">
+            <span class="api__documentation__parameters__text">{{ values['description'] }}</span>
+        </div>
+    </div>
+    <div class="col--second api__documentation__parameters__row">
+        <div class="api__documentation__parameters__col">
+            <span class=" api__documentation__parameters__title">{%if values['required']%}required{%else%}optional{%endif%} (
+                {{values['type']}}
+            )
+            {%if values['enum']%}
+            <br/>one of (
+                {{values['enum']}}
+            )
+            {%endif%}
+            </span>
+        </div>
+        <div class="api__documentation__parameters__col">
+            <span class="api__documentation__parameters__text">
+            {% if values['default']%}
+                <strong>Default:</strong> {{values['default']}}
+            {% endif %}
+            {% if values['example']%}
+                <strong>Example:</strong> {{values['example']}}
+            {% else %}
+                <strong></strong>
+            {% endif %}
+            </span>
+        </div>
+    </div>
+</div>

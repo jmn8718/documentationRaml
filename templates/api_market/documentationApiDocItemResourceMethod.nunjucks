@@ -1,0 +1,50 @@
+{% import './macros/generateAnchor.nunjucks' as anchor %}
+
+{% set uri = resource['parentUrl'] + resource['relativeUri'] %}
+{% if method['displayName'] %}
+    {% set name = method['displayName'] %}
+{% elif method['uniqueId'] %}
+    {% set name = method['uniqueId']  %}
+{% else %}
+    {% set name = 'MISSING displayName & uniqueId IN ' + uri  %}
+{% endif %}
+
+<article id="{{ anchor.replaceCharacters("resource-"+uri) }}">
+    <section class="api__documentation" >
+        <article>
+            <div class="api__documentation__subtitle">
+                <h1 class="api__documentation__title">{{uri}}</h1>
+                <span class="api__documentation__icon">
+                    <strong class="api__documentation__http api__documentation__http--{{ method['method'] | lower }}">
+                        {{ method['method'] | lower }}</strong>
+                </span>
+            </div>
+            {% markdown %} {{ method['description'] if method['description'] else 'missing description' }} {% endmarkdown %}
+        </article>
+
+        {% if method['allUriParameters'] and method['allUriParameters'] | length > 0 %}
+        <article>
+            <div class="api__documentation__subtitle">
+                <h4 class="api__documentation__section-name">Uri Parameters</h4>
+            </div>
+            {% for parameter in method['allUriParameters']%}
+                {% set values = parameter %}
+                {% include "./documentationApiDocItemResourceParameter.nunjucks" %}
+            {% endfor %}
+        </article>
+        {% endif %}
+
+        {% if method['queryParameters'] %}
+        <article>
+            <div class="api__documentation__subtitle">
+                <h4 class="api__documentation__section-name">Query Parameters</h4>
+            </div>
+            {% for key, values in method['queryParameters']%}
+                {% include "./documentationApiDocItemResourceParameter.nunjucks" %}
+            {% endfor %}
+        </article>
+        {% endif %}
+    </section>
+    <section class="api__example">
+    </section>
+</article>
