@@ -62,6 +62,8 @@
     <section class="api__example">
         <h1 class="example__title">{{uri}}</h1>
 
+        {% include "./documentationApiDocItemResourceMethodCode.nunjucks" %}
+
         {% if method['body'] %}
         <div class="example__info">
             <h2 class="example__subtitle--response">REQUEST</h2>

@@ -1,0 +1,2 @@
+curl -X {{ method['method'] | upper }} "{{resolvedUriParams}}" \
+-v
