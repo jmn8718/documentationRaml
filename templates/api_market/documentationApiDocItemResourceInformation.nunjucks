@@ -1,4 +1,5 @@
 {% import './macros/generateAnchor.nunjucks' as anchor %}
+{% import './macros/textFormat.nunjucks' as format %}
 
 {% set uri = resource['parentUrl'] + resource['relativeUri'] %}
 {% if resource['displayName'] %}
@@ -15,7 +16,9 @@
             <div class="api__documentation__subtitle">
                 <h3 class="api__documentation__title">{{ name }}</h3>
                 <p class="api__documentation__text">
-                    {% markdown %} {{ resource['description'] if resource['description'] else 'missing description' }} {% endmarkdown %}
+                {% call format.render_api_market() %}
+                {% markdown %} {{ resource['description'] if resource['description'] else 'missing description' }} {% endmarkdown %}
+                {% endcall %}
                 </p>
             </div>
         </article>

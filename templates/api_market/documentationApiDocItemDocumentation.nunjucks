@@ -1,11 +1,14 @@
 {% import './macros/generateAnchor.nunjucks' as anchor %}
+{% import './macros/textFormat.nunjucks' as format %}
 <article id="{{ anchor.replaceCharacters("documentation-"+document['title']) }}">
     <section class="api__documentation">
         <article>
             <div class="api__documentation__subtitle">
                 <h3 class="api__documentation__title">{{document['title']}}</h3>
                 <p class="api__documentation__text">
+                      {% call format.render_api_market() %}
                       {% markdown %} {{ document['content'] }} {% endmarkdown %}
+                      {% endcall %}
                 </p>
             </div>
         </article>

@@ -1,4 +1,5 @@
 {% import './macros/generateAnchor.nunjucks' as anchor %}
+{% import './macros/textFormat.nunjucks' as format %}
 
 {% set uri = resource['parentUrl'] + resource['relativeUri'] %}
 {% if method['displayName'] %}
@@ -9,7 +10,7 @@
     {% set name = 'MISSING displayName & uniqueId IN ' + uri  %}
 {% endif %}
 
-<article id="{{ anchor.replaceCharacters("resource-"+uri) }}">
+<article id="{{ anchor.replaceCharacters("resource-"+uri) | trim  }}-{{ method['method'] | lower }}">
     <section class="api__documentation" >
         <article>
             <div class="api__documentation__subtitle">
@@ -19,7 +20,9 @@
                         {{ method['method'] | lower }}</strong>
                 </span>
             </div>
+            {% call format.render_api_market() %}
             {% markdown %} {{ method['description'] if method['description'] else 'missing description' }} {% endmarkdown %}
+            {% endcall %}
         </article>
 
         {% if method['headers'] %}
