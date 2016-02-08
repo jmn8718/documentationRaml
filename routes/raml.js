@@ -32,7 +32,19 @@ router.get('/api_market/:filename', function(request, response, next) {
   var config = raml2html.getDefaultConfig('./templates/api_market/documentation.nunjucks', __dirname+'/..');
   console.log('template ',ramlFile)
 
-  raml2html.render(ramlFile, config).then(function(result) {
+  var customConfig = {
+    processRamlObj: function(ramlObj) {
+      /**
+       * Custom raml obj process
+       */
+
+
+      return config.processRamlObj(ramlObj);
+    },
+    postProcessHtml: config.postProcessHtml
+  };
+
+  raml2html.render(ramlFile, customConfig).then(function(result) {
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     response.end(result)
   }, function(error) {
@@ -40,7 +52,6 @@ router.get('/api_market/:filename', function(request, response, next) {
   });
 
 });
-
 router.get('/:filename', function(request, response, next) {
   var ramlFile = './raml/' + request.params.filename
   var config = raml2html.getDefaultConfig();
