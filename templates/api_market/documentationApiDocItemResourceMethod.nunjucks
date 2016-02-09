@@ -24,7 +24,7 @@
             {% markdown %} {{ method['description'] if method['description'] else 'missing description' }} {% endmarkdown %}
             {% endcall %}
         </article>
-
+{#
         {% if method['headers'] %}
         <article>
             <div class="api__documentation__subtitle">
@@ -35,7 +35,7 @@
             {% endfor %}
         </article>
         {% endif %}
-
+#}
         {% if method['allUriParameters'] and method['allUriParameters'] | length > 0 %}
         <article>
             <div class="api__documentation__subtitle">
