@@ -6,9 +6,38 @@ var fs = require("fs");
 var raml2html = require('raml2html');
 var raml2obj = require('raml2obj');
 
+function toFile(file, content) {
+  if(file.indexOf('/')){
+    var splits = file.split('/')
+    file = splits[splits.length-1]
+  }
+  if (fs.existsSync(file)) {
+    fs.unlinkSync(file);
+    console.log('deleted file - ', file);
+  }
+
+  var START_CONTENT = '<div id="header">'
+  var END_CONTENT = '<div class="hidden"></div>'
+
+  if(content.indexOf(START_CONTENT)){
+    var initContent = content.indexOf(START_CONTENT)
+    var endContent = content.indexOf(END_CONTENT)
+    //console.log('INIT: ',initContent,' END: ',endContent)
+    content = content.substring(initContent,endContent)
+  }
+  var pathFile = 'output/' + file + '.html'
+  fs.writeFile(pathFile, content, function (err) {
+    if (err)
+      console.error("Error", err);
+    else
+      console.log("output file - ", file, " - was created!");
+  });
+}
+
 function renderHTML(raml, config, response){
   console.log('RENDER: ',raml)
   raml2html.render(raml, config).then(function(result) {
+    toFile(raml,result)
     response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     response.end(result)
   }, function(error) {

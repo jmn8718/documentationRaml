@@ -8,15 +8,20 @@
                 <li class="nav__list__item">
                     <a class="nav__list__link nav__list__link--active" href="#api-information" title="API Information">API Information</a>
                     <!--<span class="api_market__tooltip nav__list__link__tooltip">API Information</span>-->
+
+                    {% if documentation %}
+                    <ul class="nav__list nav__list--sub-list">
+                        {% for document in documentation %}
+                        <li class="nav__list__item">
+                            <a class="nav__list__link nav__list__link-method"
+                                href="#{{ anchor.replaceCharacters("documentation-"+document['title']) | trim  }}"
+                                title="{{document['title']}}">{{document['title']}}</a>
+                            <!--<span class="api_market__tooltip nav__list__link__tooltip">{{document.title}}</span>-->
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
                 </li>
-                {% for document in documentation %}
-                <li class="nav__list__item">
-                    <a class="nav__list__link nav__list__link"
-                        href="#{{ anchor.replaceCharacters("documentation-"+document['title']) | trim  }}"
-                        title="{{document['title']}}">{{document['title']}}</a>
-                    <!--<span class="api_market__tooltip nav__list__link__tooltip">{{document.title}}</span>-->
-                </li>
-                {% endfor %}
 
                 {% for resource in resources %}
                 <li class="nav__list__item">

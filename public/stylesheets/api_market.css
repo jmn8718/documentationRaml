@@ -546,17 +546,6 @@
     animation: fade-from-left .25s
 }
 
-.api-documentation .api-doc__section>article:first-child .api__example:after {
-    content: '';
-    height: 90px;
-    display: block;
-    position: absolute;
-    top: -90px;
-    width: 100%;
-    left: 0;
-    border-left: 8px solid #566270
-}
-
 .api-documentation .api__example.api__example--expanded:first-child {
     height: calc(100% - 58px)
 }

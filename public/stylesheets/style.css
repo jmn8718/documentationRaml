@@ -34,3 +34,11 @@ body {
   background: white;
   padding: 0;
 }
+
+.api__documentation, .api__example{
+  word-wrap: break-word !important;
+
+}
+pre.prettyprint{
+  word-wrap: break-word !important;
+}
