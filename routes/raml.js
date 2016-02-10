@@ -6,9 +6,71 @@ var fs = require("fs");
 var raml2html = require('raml2html');
 var raml2obj = require('raml2obj');
 
-router.get('/obj/:filename', function(request, response, next) {
-  var ramlFile = './raml/' + request.params.filename
-  //console.log('obj')
+function toFile(file, content) {
+  if(file.indexOf('/')){
+    var splits = file.split('/')
+    file = splits[splits.length-1]
+  }
+  if (fs.existsSync(file)) {
+    fs.unlinkSync(file);
+    console.log('deleted file - ', file);
+  }
+
+  var START_CONTENT = '<div id="header">'
+  var END_CONTENT = '<div class="hidden"></div>'
+
+  if(content.indexOf(START_CONTENT)){
+    var initContent = content.indexOf(START_CONTENT)
+    var endContent = content.indexOf(END_CONTENT)
+    //console.log('INIT: ',initContent,' END: ',endContent)
+    content = content.substring(initContent,endContent)
+  }
+  var pathFile = 'output/' + file + '.html'
+  fs.writeFile(pathFile, content, function (err) {
+    if (err)
+      console.error("Error", err);
+    else
+      console.log("output file - ", file, " - was created!");
+  });
+}
+
+function renderHTML(raml, config, response){
+  console.log('RENDER: ',raml)
+  raml2html.render(raml, config).then(function(result) {
+    toFile(raml,result)
+    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+    response.end(result)
+  }, function(error) {
+    response.end(error)
+  });
+}
+
+
+function parseRamlFilename(request, next){
+  if(request.query.url !== undefined)
+    return request.query.url
+  else if (request.params[0] !== undefined)
+    return './raml/' + request.params[0]
+  else{
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  }
+}
+router.get('/obj/*', function(request, response, next) {
+  var ramlFile = ''
+  var err = undefined
+  if(request.query.url !== undefined)
+    ramlFile = request.query.url
+  else if (request.params[0] !== undefined)
+    ramlFile = './raml/' + request.params[0]
+  else{
+    err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  }
+
+  console.log('Parse object -> ')
   raml2obj.parse(ramlFile).then(function(ramlObj) {
     //console.log(ramlObj)
     response.end(JSON.stringify(ramlObj,null,2))
@@ -86,10 +148,10 @@ function preprocessRamlObj(ramlObj, queryParams){
   return ramlObj;
 }
 
-router.get('/api_market/:filename', function(request, response, next) {
-  var ramlFile = './raml/' + request.params.filename
-  var config = raml2html.getDefaultConfig('./templates/api_market/documentation.nunjucks', __dirname+'/..');
-  console.log('template ',ramlFile)
+router.get('/api_market/*', function(request, response, next) {
+  var ramlFile = parseRamlFilename(request, next)
+
+  var config = raml2html.getDefaultConfig('templates/api_market/documentation.nunjucks', __dirname+'/..');
 
   var customConfig = {
     processRamlObj: function(ramlObj) {
@@ -102,25 +164,15 @@ router.get('/api_market/:filename', function(request, response, next) {
     postProcessHtml: config.postProcessHtml
   };
 
-  raml2html.render(ramlFile, customConfig).then(function(result) {
-    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    response.end(result)
-  }, function(error) {
-    response.end(error)
-  });
+  renderHTML(ramlFile, customConfig, response)
 
 });
-router.get('/:filename', function(request, response, next) {
-  var ramlFile = './raml/' + request.params.filename
+router.get('/*', function(request, response, next) {
+  var ramlFile = parseRamlFilename(request, next)
+
   var config = raml2html.getDefaultConfig();
 
-  console.log('parse ',ramlFile)
-  raml2html.render(ramlFile, config).then(function(result) {
-    response.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    response.end(result)
-  }, function(error) {
-    response.end(error)
-  });
+  renderHTML(ramlFile, config, response)
 
 });
 

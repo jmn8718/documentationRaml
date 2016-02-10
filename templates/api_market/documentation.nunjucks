@@ -5,5 +5,5 @@
 {% include "./documentationSideBar.nunjucks" %}
 
 {% include "./documentationApiDoc.nunjucks" %}
-
+<div class="hidden"></div>
 {% include "./footer.html" %}

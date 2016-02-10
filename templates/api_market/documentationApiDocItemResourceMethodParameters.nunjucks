@@ -1,4 +1,4 @@
-{#
+
         {% if method['headers'] %}
         <article>
             <div class="api__documentation__subtitle">
@@ -9,7 +9,7 @@
             {% endfor %}
         </article>
         {% endif %}
-#}
+
         {% if method['allUriParameters'] and method['allUriParameters'] | length > 0 %}
         <article>
             <div class="api__documentation__subtitle">
