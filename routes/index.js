@@ -17,6 +17,14 @@ router.get('/', function(req, res, next) {
       {
         name: 'Example',
         file:'example.raml'
+      },
+      {
+        name: 'Event Subscription',
+        file:'event-subscription-api/api.raml'
+      },
+      {
+        name: 'Event Generation',
+        file:'event-generation-api/api.raml'
       }
     ],
     options: [

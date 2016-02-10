@@ -21,14 +21,7 @@
                 {% for resource in resources %}
                 <li class="nav__list__item">
                     {% include "./documentationSideBarResource.nunjucks" %}
-                    {% if resource['resources'] %}
-                        {% for resource in resource['resources'] %}
-                </li>
-                <li class="nav__list__item">
-                    {% include "./documentationSideBarResource.nunjucks" %}
-                        {% endfor %}
-                    {% endif %}
-                </li>
+
                 {% endfor %}
             </ul>
         </nav>
