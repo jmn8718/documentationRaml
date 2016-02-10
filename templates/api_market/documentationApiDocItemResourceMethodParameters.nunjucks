@@ -1,0 +1,34 @@
+{#
+        {% if method['headers'] %}
+        <article>
+            <div class="api__documentation__subtitle">
+                <h4 class="api__documentation__section-name">Headers</h4>
+            </div>
+            {% for key, values in method['headers']%}
+                {% include "./documentationApiDocItemResourceParameter.nunjucks" %}
+            {% endfor %}
+        </article>
+        {% endif %}
+#}
+        {% if method['allUriParameters'] and method['allUriParameters'] | length > 0 %}
+        <article>
+            <div class="api__documentation__subtitle">
+                <h4 class="api__documentation__section-name">Uri Parameters</h4>
+            </div>
+            {% for parameter in method['allUriParameters']%}
+                {% set values = parameter %}
+                {% include "./documentationApiDocItemResourceParameter.nunjucks" %}
+            {% endfor %}
+        </article>
+        {% endif %}
+
+        {% if method['queryParameters'] %}
+        <article>
+            <div class="api__documentation__subtitle">
+                <h4 class="api__documentation__section-name">Query Parameters</h4>
+            </div>
+            {% for key, values in method['queryParameters']%}
+                {% include "./documentationApiDocItemResourceParameter.nunjucks" %}
+            {% endfor %}
+        </article>
+        {% endif %}

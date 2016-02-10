@@ -1,0 +1,109 @@
+{% include "./documentationApiDocItemResourceMethodCode.nunjucks" %}
+
+{% if method['body'] %}
+<h2 class="example__subtitle--response">REQUEST</h2>
+<h3 class="example__subtitle--status-code">BODY</h3>
+<div class="example__info">
+    {% for keyBody, valuesBody in method['body'] %}
+    <div class="example__info__col {% if not loop.first %}example__info__col-with_margin{% endif %}">
+        <span class="example__info__block">
+            <label class="example__info__text">Example: </label>
+        </span>
+    </div>
+    <div class="example__info__col {% if not loop.first %}example__info__col-with_margin{% endif %}">
+        <span class="example__info__block">
+            <label class="example__info__text">Type: </label>
+            <label class="example__info__text">{{keyBody}}</label>
+        </span>
+    </div>
+    {% if valuesBody['example'] %}
+    <span class="example__json example__response--{{key}} hidden">
+        <pre class="prettyprint"> {{ valuesBody['example'] }}</pre>
+    </span>
+    {% endif %}
+    {% if valuesBody['schema'] %}
+    <span class="example__json example__response--{{key}} hidden">
+        <label class="example__info__text">Schema: </label>
+        <pre class="prettyprint"> {{ valuesBody['schema'] }}</pre>
+    </span>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+
+<h2 class="example__subtitle--response">RESPONSE</h2>
+<h3 class="example__subtitle--status-code">HTTP status code</h3>
+
+<div class="example__status-codes">
+    <div class="example__status-codes-wrapper">
+    {% for key, values in method['responses'] %}
+    <span class="example__status-code example__status-code">{{key}}</span>
+    {% endfor %}
+    </div>
+    {% for key, values in method['responses'] %}
+    <div class="example__info example__status-code__{{key}} hidden">
+        {% if values['description'] %}
+        <ul class="example__additional-info">
+            <span class="example__info__block">
+             <div class="example__info__text">
+                 {% markdown %}{{ values["description"] }}{% endmarkdown %}
+             </div>
+            </span>
+        </ul>
+        {% endif %}
+        {% if values['headers'] %}
+        <h3 class="example__subtitle--status-code">HEADERS</h3>
+        {% if values['headers']['location']['description']%}
+        <span class="example__info__block">
+            <label class="example__info__text">values['headers']['location']['description'] </label>
+        </span>
+        {% endif %}
+        <div class="example__info__col">
+            <span class="example__info__block">
+                <label class="example__info__text">Example: </label>
+            </span>
+        </div>
+        <div class="example__info__col">
+            <span class="example__info__block">
+            {% if values['headers']['location']['type'] %}
+                <label class="example__info__text">Type: </label>
+                <label class="example__info__text">values['headers']['location']['type']</label>
+            {% endif %}
+            </span>
+        </div>
+        {% if values['headers']['location']['example'] %}
+        <span class="example__json">
+            <pre class="prettyprint"> {{ values['headers']['location']['example'] }}</pre>
+        </span>
+        {% endif %}
+        {% endif %}
+        {% if values['body'] %}
+        <h3 class="example__subtitle--status-code">BODY</h3>
+        {% for keyBody, valuesBody in values['body'] %}
+        <div class="example__info__col {% if not loop.first %}example__info__col-with_margin{% endif %}">
+            <span class="example__info__block">
+                <label class="example__info__text">Example: </label>
+            </span>
+        </div>
+        <div class="example__info__col {% if not loop.first %}example__info__col-with_margin{% endif %}">
+            <span class="example__info__block">
+                <label class="example__info__text">Type: </label>
+                <label class="example__info__text">{{keyBody}}</label>
+            </span>
+        </div>
+        {% if valuesBody['example'] %}
+        <span class="example__json example__response--{{key}} hidden">
+            <pre class="prettyprint"> {{ valuesBody['example'] }}</pre>
+        </span>
+        {% endif %}
+        {% if valuesBody['schema'] %}
+        <span class="example__json example__response--{{key}} hidden">
+            <label class="example__info__text">Schema: </label>
+            <pre class="prettyprint"> {{ valuesBody['schema'] }}</pre>
+        </span>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
