@@ -18,6 +18,6 @@ raml/accounts_usa.raml
 raml/event-generation-api/**
 raml/event-subscription-api/**
 
-output/accounts_usa.raml.html
+output
 
 
