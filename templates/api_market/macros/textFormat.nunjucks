@@ -1,0 +1,23 @@
+{% macro render_api_market() %}
+
+{{ caller() }}
+{#
+    | replace(r/<a href="#\//g,'<a href="\/')
+    | replace(r/<a href/g,'<a href="<a class="api__documentation-link" target="_blank" href')
+    | replace(r/<table>/g,'<table class="api__documentation--table-elements">')
+    | replace(r/<table class="/g,'<table class="api__documentation--table-elements ')
+    | replace(r/<p><\/p>/g,'')
+    | replace(r/<p>/g,'<p class="api__documentation__text">')
+    | replace(r/<h1 id/g,'<h1 class="api__documentation__title api__documentation__title__inner" id')
+    | replace(r/<h2 id/g,'<h2 class="api__documentation__title api__documentation__title__inner" id')
+    | replace(r/<h3 id/g,'<h3 class="api__documentation__title api__documentation__title__inner" id')
+    | replace(r/<h4 id/g,'<h4 class="api__documentation__title api__documentation__title__inner" id')
+    | replace(r/<ul>/g,'<ul class="api__documentation__unordered-list">')
+    | replace(r/<ol>/g,'<ol class="api__documentation__ordered-list">')
+    | replace(r/<pre>/g,'<pre class="example__code-container prettyprint">')
+    | replace(r/<code>/g,'')
+    | replace(r/<\/code>/g,'')
+#}
+
+
+{%- endmacro%}

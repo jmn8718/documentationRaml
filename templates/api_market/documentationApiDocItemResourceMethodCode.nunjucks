@@ -1,0 +1,23 @@
+<h2 class="example__subtitle--call-code">EXAMPLE</h2>
+
+{% set resolvedUriParams = baseUri + uri %}
+
+<div class="example__call-code">
+    <div class="example__code-container language-java">
+        <pre class="prettyprint">
+        {%- include "../code/java.nunjucks" -%}
+        </pre>
+    </div>
+
+    <div class="example__code-container language-python hidden">
+        <pre class="prettyprint">
+        {%- include "../code/python.nunjucks" -%}
+        </pre>
+    </div>
+
+    <div class="example__code-container language-curl hidden">
+        <pre class="prettyprint">
+        {%- include "../code/curl.nunjucks" -%}
+        </pre>
+    </div>
+</div>

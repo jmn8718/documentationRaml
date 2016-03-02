@@ -1,4 +1,4 @@
-<div id="header"><!-- header content goes in here -->
+<div id="header">
     <div class="size-controls">
         <ul class="size-controls__options">
             <li class="size-controls__option"><a class="size-controls__option--overview size-controls__option--resize hidden" data-action="overview" href="{{overview_link}}">Overview</a></li>

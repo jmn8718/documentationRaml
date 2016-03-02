@@ -20,4 +20,27 @@ $(function(){
         }
     });
 
+    $(".collapse.nav-collapse").click(function() {
+        if($(window).width()<1024) {
+            if($('.genoa-navbar').hasClass('genoa-navbar--displayed-mobile')) {
+                $('.genoa-navbar').removeClass('genoa-navbar--displayed-mobile');
+                $('body').removeClass('traslated');
+            }
+            else {
+                $('.genoa-navbar').addClass('genoa-navbar--displayed-mobile');
+
+                $('body').addClass('traslated');}
+        }
+    });
+    $(".share>a").click(function() {
+        $(".share").addClass("share--displayed");
+    });
+
+    $( window ).resize(function() {
+        if($(window).width()>1024) {
+            $('body').removeClass('traslated');
+            $('.genoa-navbar').removeClass('genoa-navbar--displayed-mobile');
+        }
+    });
+
 });

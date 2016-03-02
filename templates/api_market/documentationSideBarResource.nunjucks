@@ -1,29 +1,38 @@
 {% import './macros/generateAnchor.nunjucks' as anchor %}
-                {% set uri = resource['parentUrl'] + resource['relativeUri'] %}
-                {% if resource['displayName'] %}
-                    {% set name = resource['displayName'] %}
-                {% elif resource['uniqueId'] %}
-                    {% set name = resource['uniqueId']  %}
-                {% else %}
-                    {% set name = 'MISSING displayName & uniqueId IN ' + uri  %}
-                {% endif %}
-                <a class="nav__list__link nav__list__link"
-                    href="#{{ anchor.replaceCharacters( "resource-"+name ) | trim }}"
-                    title="{{ name }}">{{ name }}</a>
-                <!--<span class="api_market__tooltip nav__list__link__tooltip">{{ name }}</span>-->
-                {% if resource['methods'] %}
-                <ul class="nav__list nav__list--sub-list">
-                    {% for method in resource['methods'] %}
-                    <li class="nav__list__item">
-                    			<span class="nav__list__icon">
-                    				<strong class="api__documentation__http api__documentation__http--{{ method['method']| lower }}">
-                                        {{ method['method'] | lower }}</strong>
-                    			</span>
-                                <a class="nav__list__link nav__list__link-method"
-                                    href="#{{ anchor.replaceCharacters("resource-"+uri ) | trim  }}-{{ method['method'] | lower }}"
-                                    title="{{ uri }}-{{ method['method'] | lower }}">{{ uri}}</a>
-                                <!--<span class="api_market__tooltip nav__list__link__tooltip">{{ uri }}</span>-->
-                    </li>
+            {% set uri = resource['parentUrl'] + resource['relativeUri'] %}
+            {% if resource['displayName'] %}
+                {% set name = resource['displayName'] %}
+            {% elif resource['uniqueId'] %}
+                {% set name = resource['uniqueId']  %}
+            {% else %}
+                {% set name = 'MISSING displayName & uniqueId IN ' + uri  %}
+            {% endif %}
+            <a class="nav__list__link nav__list__link"
+                href="#{{ anchor.replaceCharacters( "resource-"+uri ) | trim }}"
+                title="{{ uri }}">{{ uri }}</a>
+            <!--<span class="api_market__tooltip nav__list__link__tooltip">{{ uri }}</span>-->
+            {% if resource['methods'] %}
+            <ul class="nav__list nav__list--sub-list">
+                {% for method in resource['methods'] %}
+                <li class="nav__list__item">
+                            <span class="nav__list__icon">
+                                <strong class="api__documentation__http api__documentation__http--{{ method['method']| lower }}">
+                                    {{ method['method'] | lower }}</strong>
+                            </span>
+                            <a class="nav__list__link nav__list__link-method"
+                                href="#{{ anchor.replaceCharacters("resource-"+uri ) | trim  }}-{{ method['method'] | lower }}"
+                                title="{{ uri }}-{{ method['method'] | lower }}">{{ uri}}</a>
+                            <!--<span class="api_market__tooltip nav__list__link__tooltip">{{ uri }}</span>-->
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if resource['resources'] %}
+                    {% for resource in resource['resources'] %}
+            </li>
+            <li class="nav__list__item">
+                {% include "./documentationSideBarResource.nunjucks" %}
                     {% endfor %}
-                </ul>
-                {% endif %}
+            {% endif %}
+            </li>

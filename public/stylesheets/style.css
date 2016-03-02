@@ -1,8 +1,44 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  height: 100%;display: block;
 }
 
-a {
-  color: #00B7FF;
+#wrapper{
+  width: 100%;
+  padding: 0!important;
+  position: relative;
+}
+
+.genoa-heading{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 320;
+  height: 132px;
+}
+
+.genoa-heading.compact-head {
+  height: 90px;
+  box-shadow: 0 1px 2px 0 #a3a9b4;
+}
+
+.genoa-navbar{
+  position: fixed;
+  margin-top: 91px;
+  z-index: 321;
+  display: inline-block;
+  top: 0;
+  background: white;
+  padding: 0;
+}
+
+.api__documentation, .api__example{
+  word-wrap: break-word !important;
+
+}
+pre.prettyprint{
+  word-wrap: break-word !important;
 }

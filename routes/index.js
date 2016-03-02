@@ -3,7 +3,46 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  var values = {
+    title: 'documentationRaml',
+    ramls: [
+      {
+        name: 'Account USA',
+        file:'accounts_usa.raml'
+      },
+      {
+        name: 'Github',
+        file:'github.raml'
+      },
+      {
+        name: 'Example',
+        file:'example.raml'
+      },
+      {
+        name: 'Event Subscription',
+        file:'event-subscription-api/api.raml'
+      },
+      {
+        name: 'Event Generation',
+        file:'event-generation-api/api.raml'
+      }
+    ],
+    options: [
+      {
+        path: '',
+        name: 'Default raml2html Template'
+      },
+      {
+        path: '/api_market',
+        name: 'API_Market Template'
+      },
+      {
+        path: '/obj',
+        name: 'Object'
+      }
+    ]
+  }
+  res.render('index', values);
 });
 
 module.exports = router;
